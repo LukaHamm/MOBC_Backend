@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express')
 const mongoose = require('mongoose')
 const Book = require("./models/books");
+const UserRoute = require("./routes/userRoutes.js");
+const PostRoute = require("./routes/postRoutes");
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -17,6 +19,11 @@ const connectDB = async () => {
     process.exit(1);
   }
 }
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use("/api/user",UserRoute);
+app.use("/api/post",PostRoute);
 
 //Routes go here
 app.get('/', (req,res) => {
