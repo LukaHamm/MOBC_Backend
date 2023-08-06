@@ -1,3 +1,4 @@
+const Post = require("../models/post");
 class PostService  {
     static CreatePost = async(req,res,next) => {
        try {

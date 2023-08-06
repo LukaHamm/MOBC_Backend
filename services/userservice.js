@@ -6,16 +6,17 @@ const jwt = require("jsonwebtoken");
 class UserService {
     // register method
    static Register = async (req,res,next) => {
-   const {fullname,email,password,phoneNumber} = req.body;
+   const {name,lastname,username,password,email} = req.body;
     try {
        const user = await User.findOne({email:email});
        if(user) return res.status(500).json("This user already exist");
        if(!emailValidator(email)) return res.status(500).json("enter a valid email")
         const saveuser = await User.create({
-         fullname,
-         email,
+         username,
+         name,
          password,
-         phoneNumber
+         email,
+         lastname
         });
         await saveuser.save(); 
       res.status(200).json("User created");
@@ -41,4 +42,4 @@ res.status(200).json({user:{...otherDetails,token}});
 
 }
 
-module.exports =  {Register,Login,} = UserService;
+module.exports =  {Register,Login} = UserService;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -22,6 +23,10 @@ const UserSchema = new Schema({
     type:String,
     required:true
  },
+ activities: [{
+  type: Schema.Types.ObjectId,
+  ref: "activities"
+ }]
 });
 
 UserSchema.pre("save", async function (next) {
