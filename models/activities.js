@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const imageSchema = require("./image");
+const locationSchema = require("./location")
 const user = require('./user');
 
 const Schema = mongoose.Schema;
 const activitiesSchema = new Schema({
-  titel: {
+  title: {
     type: String,
     required: true,
   },
   activityType: {
     type: String,
-    enum: ['active', 'inactive', 'pending'],
+    enum: ['parkour', 'calisthenics', 'hiking'],
     required: true,
   },
   images: [imageSchema],
@@ -22,6 +23,7 @@ const activitiesSchema = new Schema({
     type: String,
     required: true,
   },
+  location: locationSchema,
   user: {
     type: Schema.Types.ObjectId,
     ref: "user"

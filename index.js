@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Book = require("./models/books");
 const UserRoute = require("./routes/userRoutes.js");
 const PostRoute = require("./routes/postRoutes");
+const activitiesRoute = require("./routes/activitiesRoute");
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use("/api/user",UserRoute);
 app.use("/api/post",PostRoute);
+app.use("/api/activities",activitiesRoute);
 
 //Routes go here
 app.get('/', (req,res) => {
