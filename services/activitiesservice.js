@@ -21,13 +21,15 @@ class ActivitiesService  {
        try {
        const {title,description,activityType,images,location} = req.body; 
        const uploadDate = new Date(Date.now());
+       const user = req.user.id;
        const activities = await Activities.create({
             title,
             description,
             activityType,
             images,
             uploadDate,
-            location
+            location,
+            user
 
        });
        res.status(200).json(activities);

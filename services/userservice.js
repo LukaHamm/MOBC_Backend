@@ -1,6 +1,8 @@
 const User = require("../models/user.js");
 const emailValidator = require("../validators/emailValidator");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 
 
 class UserService {
@@ -32,7 +34,7 @@ const user = await User.findOne({email:req.body.email});
 if(!user) return res.status(400).json("This user doesn’t exist");
 const isMatch = await user.matchPassword(req.body.password);
 if(!isMatch) return res.status(400).json("wrong password")
-const token = jwt.sign({id:user._id,email:user.email},"collo");
+const token = jwt.sign({id:user._id,email:user.email},process.env.JWT);
 const {password, ...otherDetails} = user._doc;
 res.status(200).json({user:{...otherDetails,token}});
 } catch (error) {
