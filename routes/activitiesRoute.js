@@ -6,8 +6,8 @@ const router = express.Router();
 router.post('/',verifyToken,PostActivity);
 router.delete('/:id',verifyToken,DeleteActivityById);
 router.put('/:id',verifyToken,UpdateActivity);
+router.get('/userId',verifyToken,GetActivityByUserId);
 router.get('/:id',GetActivityById);
-router.get('/userId',GetActivityByUserId);
 router.get('/',verifyToken,GetAllActivities);
 
 

@@ -7,7 +7,7 @@ router.post('/',verifyToken,CreatePost);
 router.delete('/:id',verifyToken,DeletePostById);
 router.put('/:id',verifyToken,UpdatePost);
 router.get('/:id',GetPostById);
-router.get('/userId',GetPostByUserId);
+router.get('/userId',verifyToken,GetPostByUserId);
 
 
 module.exports = router;

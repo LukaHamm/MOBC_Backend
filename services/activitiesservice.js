@@ -11,8 +11,10 @@ class ActivitiesService  {
    };
     static GetActivityByUserId = async (req,res,next) => {
    try {
+    console.log("User_Obj: " + JSON.stringify(req.user));
+    console.log("User ID " + req.user.id);
    const activities = await Activities.find({user:req.user.id});
-   res.status(200).json(activities);
+   res.status(200).json({});
    } catch (error) {
    console.log(error);  
    }
@@ -22,6 +24,7 @@ class ActivitiesService  {
        const {title,description,activityType,images,location} = req.body; 
        const uploadDate = new Date(Date.now());
        const user = req.user.id;
+       console.log(user);
        const activities = await Activities.create({
             title,
             description,
