@@ -6,6 +6,7 @@ const Book = require("./models/books");
 const UserRoute = require("./routes/userRoutes.js");
 const PostRoute = require("./routes/postRoutes");
 const activitiesRoute = require("./routes/activitiesRoute");
+const commentsRoute = require("./routes/evaluationsRoute");
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -26,6 +27,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/api/user",UserRoute);
 app.use("/api/post",PostRoute);
 app.use("/api/activities",activitiesRoute);
+app.use("/api/comments",commentsRoute);
 
 //Routes go here
 app.get('/', (req,res) => {

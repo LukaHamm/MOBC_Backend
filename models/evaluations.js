@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-const evaluationSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const evaluationSchema = new Schema({
   text: {
     type: String,
     required: true,
@@ -15,10 +15,19 @@ const evaluationSchema = new mongoose.Schema({
       },
     required: true
   },
+  uploadDate: {
+    type: Date,
+    required: true,
+  },
   activities: {
     type: Schema.Types.ObjectId,
     ref: "activities"
-   }
+   },
+   user: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+   },
+
 
 });
 module.exports = mongoose.model('evaluations', evaluationSchema);

@@ -9,16 +9,27 @@ class ActivitiesService  {
            
        } 
    };
-    static GetActivityByUserId = async (req,res,next) => {
+    static GetActivityByOwnUserId = async (req,res,next) => {
    try {
     console.log("User_Obj: " + JSON.stringify(req.user));
     console.log("User ID " + req.user.id);
    const activities = await Activities.find({user:req.user.id});
-   res.status(200).json({});
+   res.status(200).json(activities);
    } catch (error) {
    console.log(error);  
    }
    }
+
+   static GetActivityByOtherUserID = async (req,res,next) => {
+        try {
+            const activities = await Activities.find({user:req.params.id});
+            res.status(200).json(activities);
+        } catch (error) {
+            console.log(error);
+        }
+   }
+
+
    static PostActivity = async (req,res,next) => {
        try {
        const {title,description,activityType,images,location} = req.body; 
@@ -43,8 +54,12 @@ class ActivitiesService  {
 
    static UpdateActivity = async (req,res,next) => {
    try {
-       await Activities.findByIdAndUpdate(req.params.id,{$set : req.body}) 
-       res.status(200).json("post updated")
+       const updateActivity = await Activities.findByIdAndUpdate(req.params.id,{$set : req.body}) 
+       if(updateActivity){
+       res.status(200).json("activity updated")
+       }else{
+        res.status(400).json("activity not found or no authorization to update")
+       }
        } catch (error) {
       console.log(error);
    }
@@ -52,8 +67,12 @@ class ActivitiesService  {
 
    static DeleteActivityById = async (req,res,next) => {
     try {
-    await Activities.findByIdAndDelete(req.params.id);
-    res.status(200).json("post has been deleted");    
+    const deleteActivity = await Activities.findOneAndDelete({_id:req.params.id, user:req.user.id});
+    if(deleteActivity){
+        res.status(200).json("activity has been deleted");    
+    }else{
+        res.status(400).json("activity not found or no authorization to delete");    
+    }
     } catch (error) {
     console.log(error);
     }
@@ -70,4 +89,4 @@ static GetActivityById = async (req,res,next) => {
 
 }
 
-module.exports =  {GetAllActivities,GetActivityByUserId,PostActivity,UpdateActivity,DeleteActivityById,GetActivityById} = ActivitiesService;
+module.exports =  {GetAllActivities,GetActivityByOwnUserId: GetActivityByUserId,PostActivity,UpdateActivity,DeleteActivityById,GetActivityById} = ActivitiesService;
