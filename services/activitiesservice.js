@@ -1,4 +1,5 @@
 const Activities = require("../models/activities");
+
 class ActivitiesService  {
     static GetAllActivities = async(req,res,next) => {
        try {
@@ -51,6 +52,16 @@ class ActivitiesService  {
        console.log(error);  
        }
    }
+
+
+    static PostImageForActivity = async (req,res) => {
+        if (!req.file) {
+            return res.status(400).send('Es wurde keine Datei hochgeladen.');
+        }
+        const fileName = req.file.filename;
+        const imageBuffer = req.file.buffer;
+        res.send(`Die Datei "${fileName}" wurde erfolgreich hochgeladen.`);
+    }
 
    static UpdateActivity = async (req,res,next) => {
    try {

@@ -6,11 +6,16 @@ const {
   GetActivityByOtherUserID,
   UpdateActivity,
   DeleteActivityById,
-  GetActivityById
+  GetActivityById,
+  PostImageForActivity
 } = require("../services/activitiesservice");
 const { verifyToken } = require("../Auth/auth");
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+const multer = require('multer'); 
 
+router.post("/image:id", upload.single('image'), verifyToken, PostImageForActivity);
 router.post("/", verifyToken, PostActivity);
 router.delete("/:id", verifyToken, DeleteActivityById);
 router.put("/:id", verifyToken, UpdateActivity);
