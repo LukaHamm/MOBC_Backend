@@ -60,6 +60,9 @@ class ActivitiesService  {
         }
         const fileName = req.file.filename;
         const imageBuffer = req.file.buffer;
+        const activities = await Activities.findById(req.params.id)
+        activities.images.push({name:fileName,data:imageBuffer})
+        console.log("imagebuffer: " + imageBuffer);
         res.send(`Die Datei "${fileName}" wurde erfolgreich hochgeladen.`);
     }
 
