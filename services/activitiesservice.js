@@ -1,4 +1,7 @@
+const activities = require("../models/activities");
 const Activities = require("../models/activities");
+const Image = require("../models/image");
+const fs = require('fs');
 
 class ActivitiesService  {
     static GetAllActivities = async(req,res,next) => {
@@ -33,7 +36,7 @@ class ActivitiesService  {
 
    static PostActivity = async (req,res,next) => {
        try {
-       const {title,description,activityType,images,location} = req.body; 
+       const {title,description,activityType,location} = req.body; 
        const uploadDate = new Date(Date.now());
        const user = req.user.id;
        console.log(user);
@@ -41,7 +44,6 @@ class ActivitiesService  {
             title,
             description,
             activityType,
-            images,
             uploadDate,
             location,
             user
@@ -58,12 +60,25 @@ class ActivitiesService  {
         if (!req.file) {
             return res.status(400).send('Es wurde keine Datei hochgeladen.');
         }
-        const fileName = req.file.filename;
-        const imageBuffer = req.file.buffer;
-        const activities = await Activities.findById(req.params.id)
-        activities.images.push({name:fileName,data:imageBuffer})
-        console.log("imagebuffer: " + imageBuffer);
-        res.send(`Die Datei "${fileName}" wurde erfolgreich hochgeladen.`);
+        const activities = req.params.id;
+        const name = req.file.filename;
+        const data = req.file.buffer;
+        const img = await Image.create({
+            name,
+            data,
+            activities
+        })
+        const activitiesobj = await Activities.findById(req.params.id);
+        activitiesobj.images.push(img.id)
+        const updateActivity = await Activities.findByIdAndUpdate(req.params.id,activitiesobj) 
+        res.send(`Die Datei "${name}" wurde erfolgreich hochgeladen.`);
+    }
+
+    static GetImagesForActivity = async(req,res) => {
+        console.log(req.params.id);
+        const image = await Image.findById(req.params.id);
+        res.setHeader('Content-type', 'image/jpeg');
+        res.send(image.data);
     }
 
    static UpdateActivity = async (req,res,next) => {

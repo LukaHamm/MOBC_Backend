@@ -14,7 +14,6 @@ const activitiesSchema = new Schema({
     enum: ['parkour', 'calisthenics', 'hiking'],
     required: true,
   },
-  images: [imageSchema],
   uploadDate: {
     type: Date,
     required: true,
@@ -31,6 +30,10 @@ const activitiesSchema = new Schema({
    evaluations: [{
     type: Schema.Types.ObjectId,
     ref: "evaluations"
+   }],
+   images: [{
+    type: Schema.Types.ObjectId,
+    ref: "image"
    }]
 
 });

@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
   name: String,
-  data: Buffer 
+  data: Buffer,
+  activities: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "activities"
+   }
 });
 
-module.exports=imageSchema;
+module.exports = mongoose.model('image', imageSchema);
