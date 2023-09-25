@@ -11,7 +11,7 @@ const activitiesSchema = new Schema({
   },
   activityType: {
     type: String,
-    enum: ['parkour', 'calisthenics', 'hiking'],
+    enum: ['parkour', 'calisthenics', 'outdoor','outdoor_gym'],
     required: true,
   },
   uploadDate: {
