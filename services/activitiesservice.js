@@ -6,8 +6,13 @@ const fs = require('fs');
 class ActivitiesService  {
     static GetAllActivities = async(req,res,next) => {
        try {
-         const activities = await Activities.find();
-        res.status(200).json(activities);
+         if(req.query.category === 'all'){
+            const activities = await Activities.find();
+            res.status(200).json(activities);
+         }else{
+            const activities = await Activities.find({activityType:req.query.category});
+            res.status(200).json(activities);
+         }
        } catch (error) {
          console.log(error);
            
