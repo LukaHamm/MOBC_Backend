@@ -23,7 +23,8 @@ class EvaluationsService  {
             rating,
             uploadDate,
             activities,
-            user
+            user,
+            username
        });
        res.status(200).json(evaluations);
        } catch (error) {
