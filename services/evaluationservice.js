@@ -17,6 +17,7 @@ class EvaluationsService  {
        const uploadDate = new Date(Date.now());
        const activities = req.params.id;
        const user = req.user.id;
+       const username = req.user.name;
        const evaluations = await Evaluations.create({
             text,
             rating,

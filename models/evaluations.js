@@ -27,6 +27,10 @@ const evaluationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user"
    },
+   username: {
+    type: String,
+    ref: "user"
+   }
 
 
 });

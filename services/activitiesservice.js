@@ -41,7 +41,7 @@ class ActivitiesService  {
 
    static PostActivity = async (req,res,next) => {
        try {
-       const {title,description,activityType,location} = req.body; 
+       const {title,description,activityType,location,address} = req.body; 
        const uploadDate = new Date(Date.now());
        const user = req.user.id;
        console.log(user);
@@ -51,7 +51,8 @@ class ActivitiesService  {
             activityType,
             uploadDate,
             location,
-            user
+            user,
+            address
 
        });
        res.status(200).json(activities);

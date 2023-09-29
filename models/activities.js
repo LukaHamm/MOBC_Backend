@@ -22,6 +22,10 @@ const activitiesSchema = new Schema({
     type: String,
     required: true,
   },
+  address:{
+    type: String,
+    required: true
+  },
   location: locationSchema,
   user: {
     type: Schema.Types.ObjectId,
