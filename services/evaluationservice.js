@@ -20,6 +20,7 @@ class EvaluationsService  {
        const usermodel = await User.find({email:req.user.email});
        console.log("User" + usermodel)
        const username = usermodel.username;
+       console.log(username)
        const user = usermodel._id;
        const evaluations = await Evaluations.create({
             text,
