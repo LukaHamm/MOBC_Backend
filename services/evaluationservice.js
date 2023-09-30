@@ -19,7 +19,8 @@ class EvaluationsService  {
        const activities = req.params.id;
        const usermodel = await User.find({email:req.user.email});
        console.log("User" + usermodel)
-       const username = await usermodel.username;
+       if(!usermodel){
+       const username = usermodel.username;
        console.log(username)
        const user = await usermodel._id;
        const evaluations = await Evaluations.create({
@@ -31,6 +32,7 @@ class EvaluationsService  {
             username
        });
        res.status(200).json(evaluations);
+    }
        } catch (error) {
        console.log(error);  
        }
