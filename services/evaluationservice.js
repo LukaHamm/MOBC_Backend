@@ -17,12 +17,8 @@ class EvaluationsService  {
        const {text,rating} = req.body; 
        const uploadDate = new Date(Date.now());
        const activities = req.params.id;
-       const usermodel = await User.find({email:req.user.email});
-       console.log("User" + usermodel)
-       if(usermodel){
-       const username = usermodel.username;
-       console.log(username)
-       const user = await usermodel._id;
+       const username = req.user.email;
+       const user = req.user.id;
        const evaluations = await Evaluations.create({
             text,
             rating,
@@ -32,7 +28,7 @@ class EvaluationsService  {
             username
        });
        res.status(200).json(evaluations);
-    }
+    
        } catch (error) {
        console.log(error);  
        }
