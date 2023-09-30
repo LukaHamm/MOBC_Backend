@@ -19,7 +19,7 @@ class EvaluationsService  {
        const activities = req.params.id;
        const usermodel = await User.find({email:req.user.email});
        console.log("User" + usermodel)
-       if(!usermodel){
+       if(usermodel){
        const username = usermodel.username;
        console.log(username)
        const user = await usermodel._id;
